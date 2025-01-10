@@ -1,0 +1,58 @@
+<%-include("includes/nav.ejs")%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Application Hero Section</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #21206a, #02117c);
+        }
+        .hero {
+            text-align: center;
+            color: white;
+            position: relative;
+            animation: fadeIn 1s ease-in;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin: 0;
+            animation: slideIn 1s ease forwards;
+        }
+        .total-fee {
+            font-size: 2rem;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Join Our Fitness Journey</h1>
+        <div class="total-fee"> total fees {af-<%=count%>}</div>
+    </div>
+</body>
+</html>
