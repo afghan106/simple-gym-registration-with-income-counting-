@@ -1,0 +1,179 @@
+<%-include("includes/nav.ejs")%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Member</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 200vh; /* Just for demonstration to allow scrolling */
+            background: #f4f4f4;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            transition: top 0.3s; /* Smooth transition */
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: #555;
+        }
+
+        .toggle {
+            display: none; /* Hide toggle button on larger screens */
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Hide links initially on mobile */
+                flex-direction: column;
+                position: absolute;
+                top: 50px; /* Adjust based on navbar height */
+                left: 0;
+                background: #333;
+                width: 100%;
+            }
+
+            .nav-links.active {
+                display: flex; /* Show links when active */
+            }
+
+            .toggle {
+                display: block; /* Show toggle button on mobile */
+            }
+        }
+
+        .container {
+            margin-top: 70px; /* Space for the fixed navbar */
+            padding: 20px;
+        }
+
+        .title {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="file"],
+        button {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+   
+
+    <nav class="navbar" id="navbar">
+        <div class="logo">My App</div>
+        <div class="toggle" id="toggle-btn">&#9776;</div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="/admin/dashboard">Home</a></li>
+            <li><a href="/admin/add-member">Add User</a></li>
+            <li><a href="/admin/members">User List</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1 class="title">Add Member</h1>
+        <form action="/admin/add-member" method="POST" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="text" name="fname" placeholder="Father's Name" required>
+            <input type="number" name="feeAmount" placeholder="Fee Amount" required>
+            <input type="checkbox" id="feePaid" name="feePaid" value="true" onchange="updateValue()"> Fee Paid
+            <input type="date" name="dateJoined" required>
+            <input type="file" name="memberImage" accept="image/*" required>
+            <button type="submit">Add Member</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript for Toggle Functionality
+        document.getElementById('toggle-btn').addEventListener('click', function() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active'); // Toggle the active class
+        });
+
+        // JavaScript for Scroll Animation
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                // Scrolling down
+                navbar.style.top = '-70px'; // Adjust based on navbar height
+            } else {
+                // Scrolling up
+                navbar.style.top = '0';
+            }
+            lastScrollTop = scrollTop; // Update last scroll position
+        });
+
+        function updateValue() {
+            const checkbox = document.getElementById('feePaid');
+            // If the checkbox is checked, it sends 'true'. If not checked, it won't send this field.
+            checkbox.value = checkbox.checked ? 'true' : 'false';
+        }
+    </script>
+
+</body>
+</html>
